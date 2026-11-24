@@ -116,7 +116,9 @@ dump(pats, "patterns.json")
 
 def md_tables(path):
     out, cur, name = {}, None, None
-    for line in open(path):
+    if not os.path.exists(path):   # written by one-off research scripts; absent on a fresh install
+        return out
+    for line in open(path, encoding="utf-8"):
         if line.startswith("## "):
             name = line[3:].strip()
         elif line.startswith("|") and not set(line.strip()) <= set("|:- "):
