@@ -74,7 +74,7 @@ W = idx[::-1][::5][::-1]                                            # weekly, an
 T = idx[-1]
 vix = pd.read_csv(os.path.join(DATA_DIR, "extra", "vix.csv"), parse_dates=["Date"]).set_index("Date")["vix"].reindex(idx).ffill()
 vpct = vix.rolling(750, min_periods=120).rank(pct=True)
-br200 = (close > close.rolling(200, min_periods=150).mean()).where(listed).mean(1)
+br200 = (close > close.rolling(200, min_periods=150).mean()).where(listed).astype(float).mean(1)
 REG = {
     "VIX high (fear)": vpct > 0.67, "VIX low (calm)": vpct < 0.33,
     "Market below its 200-day avg": n500 < n500.rolling(200).mean(), "Market above its 200-day avg": n500 > n500.rolling(200).mean(),

@@ -133,9 +133,9 @@ def md_tables(path):
 
 
 vix = pd.read_csv(os.path.join(DATA_DIR, "extra", "vix.csv"), parse_dates=["Date"]).set_index("Date")["vix"]
-br = (close > close.rolling(200, min_periods=150).mean()).where(close.notna()).mean(1)
-br50 = (close > close.rolling(50, min_periods=40).mean()).where(close.notna()).mean(1)
-adv = (ret > 0).where(close.notna()).mean(1)
+br = (close > close.rolling(200, min_periods=150).mean()).where(close.notna()).astype(float).mean(1)
+br50 = (close > close.rolling(50, min_periods=40).mean()).where(close.notna()).astype(float).mean(1)
+adv = (ret > 0).where(close.notna()).astype(float).mean(1)
 w2 = idx[::-1][::5][::-1][-157:]                       # 3 years weekly
 lib_hist = json.load(open(f"{R}/library_stocks.json")).get("history", [])
 market = {

@@ -122,11 +122,11 @@ hi = logc >= logc.rolling(250, min_periods=200).max()
 lo = logc <= logc.rolling(250, min_periods=200).min()
 cnt = listed.sum(1)
 B = pd.DataFrame({
-    "above50": (close > ma50).where(listed & ma50.notna()).mean(1),
-    "above200": (close > ma200).where(listed & ma200.notna()).mean(1),
-    "newHighs": hi.where(listed & logc.rolling(250, min_periods=200).max().notna()).rolling(5).max().mean(1),
-    "newLows": lo.where(listed & logc.rolling(250, min_periods=200).min().notna()).rolling(5).max().mean(1),
-    "rising": (ret > 0).where(listed).mean(1).rolling(10).mean(),
+    "above50": (close > ma50).where(listed & ma50.notna()).astype(float).mean(1),
+    "above200": (close > ma200).where(listed & ma200.notna()).astype(float).mean(1),
+    "newHighs": hi.where(listed & logc.rolling(250, min_periods=200).max().notna()).astype(float).rolling(5).max().mean(1),
+    "newLows": lo.where(listed & logc.rolling(250, min_periods=200).min().notna()).astype(float).rolling(5).max().mean(1),
+    "rising": (ret > 0).where(listed).astype(float).mean(1).rolling(10).mean(),
 })
 B["hiMinusLo"] = B["newHighs"] - B["newLows"]
 B.loc[B.index < pd.Timestamp("2016-01-01")] = np.nan       # rolling 1-year measures need a year of history first

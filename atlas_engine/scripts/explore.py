@@ -227,8 +227,8 @@ say("(With ~200 pairs some links appear by chance; values under ~0.1 are weak.)\
 
 say("Market-wide signals vs the Nifty 500 later (correlation, weekly samples).\n")
 vix = pd.read_csv(os.path.join(DATA_DIR, "extra", "vix.csv"), parse_dates=["Date"]).set_index("Date")["vix"].reindex(idx).ffill()
-breadth200 = (close > close.rolling(200, min_periods=150).mean()).where(listed).mean(1)
-adv = (ret > 0).where(listed).mean(1).rolling(10).mean()
+breadth200 = (close > close.rolling(200, min_periods=150).mean()).where(listed).astype(float).mean(1)
+adv = (ret > 0).where(listed).astype(float).mean(1).rolling(10).mean()
 mkt_sig = {"India VIX (fear)": np.log(vix), "% of stocks above 200-day avg": breadth200,
            "% of stocks rising (10-day avg)": adv, "Nifty 500 last 3 months": n500.diff(63),
            "small caps vs large caps, last 3 months": small.diff(63) - big.diff(63)}
@@ -265,7 +265,7 @@ for lab in ["last year's return", "last 3 months' return", "volatility (wildness
     prof[lab] = {"doubled": pr.where(dbl).stack().median(), "halved": pr.where(hlf).stack().median(), "all": 50}
 say("(Shown as percentile among stocks that day: 50 = typical, 90 = near the top, 10 = near the bottom.)\n")
 table(pd.DataFrame(prof).T, 0)
-cnt = pd.DataFrame({"% that doubled next year": dbl.where(f1.notna()).mean(1) * 100, "% that halved": hlf.where(f1.notna()).mean(1) * 100})
+cnt = pd.DataFrame({"% that doubled next year": dbl.where(f1.notna()).astype(float).mean(1) * 100, "% that halved": hlf.where(f1.notna()).astype(float).mean(1) * 100})
 table(cnt.groupby(cnt.index.year).mean().T, 1)
 if "sec_mom" in p:
     ind = pd.read_csv(os.path.join(DATA_DIR, "extra", "step3", "sectors.csv")).set_index("Symbol")["Industry"]

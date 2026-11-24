@@ -39,10 +39,10 @@ out = {"date": str(idx[-1].date())}
 
 # ------------------------------------------------------------------ 1. regime
 print("regime", flush=True)
-above200 = (c > c.rolling(200, min_periods=150).mean()).where(c.notna()).mean(axis=1)
-above50 = (c > c.rolling(50, min_periods=40).mean()).where(c.notna()).mean(axis=1)
-hi = (c >= c.rolling(250, min_periods=200).max()).where(c.notna()).mean(axis=1)
-lo = (c <= c.rolling(250, min_periods=200).min()).where(c.notna()).mean(axis=1)
+above200 = (c > c.rolling(200, min_periods=150).mean()).where(c.notna()).astype(float).mean(axis=1)
+above50 = (c > c.rolling(50, min_periods=40).mean()).where(c.notna()).astype(float).mean(axis=1)
+hi = (c >= c.rolling(250, min_periods=200).max()).where(c.notna()).astype(float).mean(axis=1)
+lo = (c <= c.rolling(250, min_periods=200).min()).where(c.notna()).astype(float).mean(axis=1)
 vix = pd.read_csv(os.path.join(DATA_DIR, "extra", "vix.csv"), parse_dates=["Date"]).set_index("Date")["vix"].reindex(idx).ffill()
 mret = n500.diff()
 F = pd.DataFrame({"trend_3m": n500 - n500.shift(63), "trend_1m": n500 - n500.shift(21), "vol_1m": mret.rolling(21).std() * np.sqrt(250),

@@ -139,7 +139,7 @@ def _regime(p, idx, dates, ncols):
             out["market: small caps beating large (3m)"] = sb > 0.03
             out["market: large caps beating small (3m)"] = sb < -0.03
     close = p["close"]
-    br = (close > close.rolling(200, min_periods=150).mean()).where(close.notna()).mean(1)
+    br = (close > close.rolling(200, min_periods=150).mean()).where(close.notna()).astype(float).mean(1)
     out["market: most stocks above 200-day avg (>60%)"] = br > 0.6
     out["market: few stocks above 200-day avg (<35%)"] = br < 0.35
     m = pd.Series(idx.month, index=idx)
