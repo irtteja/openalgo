@@ -159,8 +159,8 @@ breadth["divergence"] = {"now": bool(div.loc[T]), "weeks": int(dv.sum()), **{f"n
                          "normal": {h: stat(fN[h].loc[Wp]) for h in FWD}}
 # breadth inside each group (members today; history of members = survivor view, so only now and 4 weeks ago)
 gb = []
-a200 = (close > ma200).where(listed)
-a50 = (close > ma50).where(listed)
+a200 = (close > ma200).where(listed).astype(float)
+a50 = (close > ma50).where(listed).astype(float)
 for k, syms in members.items():
     syms = [s for s in syms if s in UNI or k.startswith("industry")]
     if len(syms) < 5 or k not in L.columns:

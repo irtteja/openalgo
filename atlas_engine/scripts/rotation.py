@@ -79,7 +79,7 @@ base = (near_hi > -0.08) & (rs_near_hi > -0.08) & (tight < 0.75)
 breakout = (L >= L.rolling(250, min_periods=150).max()) & base.shift(1).rolling(21, min_periods=1).max().astype(bool)
 
 ma50 = close.rolling(50, min_periods=40).mean()
-above50 = (close > ma50).where(listed)
+above50 = (close > ma50).where(listed).astype(float)
 dlv = p["dlv"]
 dlv_up = dlv.rolling(20, min_periods=10).mean() - dlv.rolling(120, min_periods=60).mean()
 volr = np.log(p["volume"].rolling(20, min_periods=10).mean() / p["volume"].rolling(120, min_periods=60).mean())

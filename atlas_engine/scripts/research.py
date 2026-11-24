@@ -33,7 +33,7 @@ def base():
     logc = np.log(close)
     n500 = _index("NIFTY 500", idx)
     cons = pd.read_csv(os.path.join(S3, "constituents.csv"))
-    above50 = (close > close.rolling(50, min_periods=40).mean()).where(close.notna())
+    above50 = (close > close.rolling(50, min_periods=40).mean()).where(close.notna()).astype(float)
     value = p["close_raw"] * p["volume_raw"]
     dlv = p["dlv"]
     groups = {}

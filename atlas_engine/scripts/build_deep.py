@@ -122,7 +122,7 @@ nh = L - L.rolling(250, min_periods=150).max()
 rsnh = RS - RS.rolling(250, min_periods=150).max()
 base = (nh > -0.08) & (rsnh > -0.08) & (tight < 0.75)
 brk = (L >= L.rolling(250, min_periods=150).max()) & base.shift(1).rolling(21, min_periods=1).max().astype(bool)
-above50 = (close > close.rolling(50, min_periods=40).mean()).where(listed)
+above50 = (close > close.rolling(50, min_periods=40).mean()).where(listed).astype(float)
 B = pd.DataFrame({k: above50[v].mean(1) for k, v in members.items() if len(v) >= 5}).reindex(columns=L.columns)
 fRS = {h: RS.shift(-n) - RS for h, n in FWD.items()}
 fL = {h: L.shift(-n) - L for h, n in FWD.items()}

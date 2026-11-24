@@ -187,7 +187,7 @@ def build_group_table(p: dict, step=5) -> Table:
     nh = L - L.rolling(250, min_periods=150).max()
     rsnh = RS - RS.rolling(250, min_periods=150).max()
     base = (nh > -0.08) & (rsnh > -0.08) & (tight < 0.75)
-    above50 = (close > close.rolling(50, min_periods=40).mean()).where(listed)
+    above50 = (close > close.rolling(50, min_periods=40).mean()).where(listed).astype(float)
     dlvu = p["dlv"].rolling(20, min_periods=10).mean() - p["dlv"].rolling(120, min_periods=60).mean()
     B, DL = {}, {}
     for k, syms in members.items():
