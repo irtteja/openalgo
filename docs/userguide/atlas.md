@@ -46,3 +46,20 @@ Instead of, or as well as, the engine on this computer:
 
 The feed is kept for 15 minutes (`ATLAS_CACHE_SECONDS`). **Reload** on the page fetches the latest at once, for example
 after the Atlas's evening update.
+
+## Installing on Windows with one file
+
+`installer/windows/OpenAlgoAtlasSetup.exe` installs OpenAlgo with the Atlas on a Windows PC: download it, double-click
+it and follow the black setup window. It needs no administrator rights and no other software; it downloads uv
+(which brings Python), the latest code of this branch and the libraries, into `%USERPROFILE%\OpenAlgoAtlas`, then
+makes two desktop icons:
+
+- **OpenAlgo Atlas** starts OpenAlgo and opens it in the browser. Keep its window open; closing it stops OpenAlgo.
+- **Update OpenAlgo Atlas** downloads the latest version. Close OpenAlgo first.
+
+The setup also offers to start OpenAlgo whenever you sign in to Windows, so the 7:30 pm update runs. Running it again
+updates the program files only: `.env`, `db\` (your account and broker keys) and `atlas_engine\data` are never
+touched. Windows may warn that the file is from an unknown publisher, because it is not code-signed; choose
+**More info** and then **Run anyway**.
+
+To rebuild the file after changing `install.ps1`: `makensis installer/windows/OpenAlgoAtlasSetup.nsi`.
