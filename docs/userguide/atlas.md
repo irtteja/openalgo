@@ -18,9 +18,25 @@ terminal, where any trade is your own decision.
 
 The odds are how often similar past cases did something; they are not advice.
 
-## Setting it up
+## Updating on this computer
 
-Choose one source in `.env`, then restart OpenAlgo:
+OpenAlgo includes the Atlas engine (`atlas_engine/`). It downloads NSE's public data from this computer (daily prices
+and delivery for every stock, index levels and members, insider trades and pledges, F&O positions, results, VIX) and
+rebuilds the analysis every weekday evening at 7:30 pm IST (`ATLAS_ENGINE_TIME`). The Atlas page shows its progress
+and has **Update now** and **Update and relearn patterns** buttons.
+
+- **The first update** downloads NSE history since 2015: about 2 GB and a few hours. Start it from the Atlas page.
+  OpenAlgo stays usable meanwhile, and an update that stops continues where it left off next time.
+- **Every later update** takes about 10 to 20 minutes, and about an hour once a week when the patterns are relearned.
+- If the computer was off at 7:30 pm, the update runs a couple of minutes after OpenAlgo next starts.
+- It runs as a separate process, so OpenAlgo's trading screens are not slowed by it.
+
+During market hours the page also shows **today's moves** for the main indices and the listed stocks, from your
+broker's quotes. That is a quote request only; it never places an order.
+
+## Other sources
+
+Instead of, or as well as, the engine on this computer:
 
 - **A local file:** if the Atlas PC app runs on the same computer, set `ATLAS_FEED_PATH` to its
   `explorer/data/atlas_feed.json`.

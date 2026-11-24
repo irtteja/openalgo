@@ -1,0 +1,644 @@
+{
+"pages": {
+"/all-reports": {
+"origin": "sitemap"
+},
+"/all-reports-debt": {
+"origin": "sitemap"
+},
+"/all-reports-derivatives": {
+"origin": "sitemap"
+},
+"/all-reports/historical-equities-fii-fpi-dii-trading-activity": {
+"origin": "sitemap"
+},
+"/market-data/52-week-high-equity-market": {
+"origin": "sitemap"
+},
+"/market-data/52-week-low-equity-market": {
+"origin": "sitemap"
+},
+"/market-data/advance": {
+"origin": "sitemap"
+},
+"/market-data/all-upcoming-issues-ipo": {
+"origin": "sitemap"
+},
+"/market-data/all-upcoming-issues-ncb-gsec": {
+"origin": "sitemap"
+},
+"/market-data/all-upcoming-issues-ofs": {
+"origin": "sitemap"
+},
+"/market-data/all-upcoming-issues-ofs-invits": {
+"origin": "sitemap"
+},
+"/market-data/all-upcoming-issues-ofs-ipp": {
+"origin": "sitemap"
+},
+"/market-data/all-upcoming-issues-ofs-reits": {
+"origin": "sitemap"
+},
+"/market-data/all-upcoming-issues-ofs-reverse-book-building": {
+"origin": "sitemap"
+},
+"/market-data/all-upcoming-issues-ofs-rights": {
+"origin": "sitemap"
+},
+"/market-data/all-upcoming-issues-ofs-tender-offer": {
+"origin": "sitemap"
+},
+"/market-data/all-upcoming-issues-zczp": {
+"origin": "sitemap"
+},
+"/market-data/analysis-and-tools-capital-market-snapshot": {
+"origin": "sitemap"
+},
+"/market-data/analysis-and-tools-derivatives-market-snapshot": {
+"origin": "sitemap"
+},
+"/market-data/block-deal-watch": {
+"origin": "sitemap"
+},
+"/market-data/bond-market-futures": {
+"origin": "sitemap"
+},
+"/market-data/bonds-traded-in-capital-market": {
+"origin": "sitemap"
+},
+"/market-data/both-band-hitters": {
+"origin": "sitemap"
+},
+"/market-data/commodity-derivatives": {
+"origin": "sitemap"
+},
+"/market-data/currency-derivatives": {
+"origin": "sitemap"
+},
+"/market-data/debt-market-negotiated-trades-reporting": {
+"origin": "sitemap"
+},
+"/market-data/debt-market-reporting-corporate-bonds-traded-on-exchange": {
+"origin": "sitemap"
+},
+"/market-data/debt-market-request-for-quote-rfq": {
+"origin": "sitemap"
+},
+"/market-data/debt-market-trade-repository": {
+"origin": "sitemap"
+},
+"/market-data/debt-market-tri-party-repo": {
+"origin": "sitemap"
+},
+"/market-data/equity-derivatives-watch": {
+"origin": "sitemap"
+},
+"/market-data/exchange-traded-funds-etf": {
+"origin": "sitemap"
+},
+"/market-data/foreign-investment-limit": {
+"origin": "sitemap"
+},
+"/market-data/index-performances": {
+"origin": "sitemap"
+},
+"/market-data/large-deals": {
+"origin": "sitemap"
+},
+"/market-data/legend-of-series": {
+"origin": "sitemap"
+},
+"/market-data/liquidity-enhancement-scheme": {
+"origin": "sitemap"
+},
+"/market-data/live-equity-market": {
+"origin": "sitemap"
+},
+"/market-data/live-market-indices": {
+"origin": "sitemap"
+},
+"/market-data/live-t0-market": {
+"origin": "sitemap"
+},
+"/market-data/lower-band-hitters": {
+"origin": "sitemap"
+},
+"/market-data/most-active-contracts": {
+"origin": "sitemap"
+},
+"/market-data/most-active-equities": {
+"origin": "sitemap"
+},
+"/market-data/most-active-underlying": {
+"origin": "sitemap"
+},
+"/market-data/new-stock-exchange-listings-forthcoming": {
+"origin": "sitemap"
+},
+"/market-data/new-stock-exchange-listings-recent": {
+"origin": "sitemap"
+},
+"/market-data/new-stock-exchange-listings-today": {
+"origin": "sitemap"
+},
+"/market-data/oi-spurts": {
+"origin": "sitemap"
+},
+"/market-data/pre-open-market-cm-and-emerge-market": {
+"origin": "sitemap"
+},
+"/market-data/price-bands-surveillance-actions": {
+"origin": "sitemap"
+},
+"/market-data/securities-available-for-trading": {
+"origin": "sitemap"
+},
+"/market-data/securities-information-contracts-available-for-trading": {
+"origin": "sitemap"
+},
+"/market-data/securities-lending-and-borrowing": {
+"origin": "sitemap"
+},
+"/market-data/sme-market": {
+"origin": "sitemap"
+},
+"/market-data/sovereign-gold-bond": {
+"origin": "sitemap"
+},
+"/market-data/stocks-in-call-auction": {
+"origin": "sitemap"
+},
+"/market-data/stocks-traded": {
+"origin": "sitemap"
+},
+"/market-data/top-gainers-losers": {
+"origin": "sitemap"
+},
+"/market-data/upper-band-hitters": {
+"origin": "sitemap"
+},
+"/market-data/volume-gainers-spurts": {
+"origin": "sitemap"
+},
+"/option-chain": {
+"origin": "sitemap"
+},
+"/position-limit": {
+"origin": "sitemap"
+},
+"/products-services/equity-derivatives-risk-management-sec-ban": {
+"origin": "sitemap"
+},
+"/reports/asm": {
+"origin": "sitemap"
+},
+"/reports/gsm": {
+"origin": "sitemap"
+},
+"/reports/price-band-changes": {
+"origin": "sitemap"
+},
+"/reports/rumour-verification": {
+"origin": "sitemap"
+}
+},
+"sources": {
+"api:NextApi/apiClient#getGiftNifty": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient?functionName=getGiftNifty"
+},
+"api:NextApi/apiClient#getIndexData": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient?functionName=getIndexData&&type=All"
+},
+"api:NextApi/apiClient#getListingData": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient?functionName=getListingData"
+},
+"api:NextApi/apiClient#getMarketTurnoverSummary": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient?functionName=getMarketTurnoverSummary"
+},
+"api:NextApi/apiClient/cmPreOpenApi#getPreOpenCategory": {
+"kind": "api",
+"pages": [
+"/market-data/pre-open-market-cm-and-emerge-market"
+],
+"target": "NextApi/apiClient/cmPreOpenApi?functionName=getPreOpenCategory"
+},
+"api:NextApi/apiClient/cmPreOpenApi#getPreOpenData": {
+"kind": "api",
+"pages": [
+"/market-data/pre-open-market-cm-and-emerge-market"
+],
+"target": "NextApi/apiClient/cmPreOpenApi?functionName=getPreOpenData&category={category}&symbol={symbol}"
+},
+"api:NextApi/apiClient/cmPreOpenApi#getPreOpenDeafultGraph": {
+"kind": "api",
+"pages": [
+"/market-data/pre-open-market-cm-and-emerge-market"
+],
+"target": "NextApi/apiClient/cmPreOpenApi?functionName=getPreOpenDeafultGraph&indentifier={indentifier}"
+},
+"api:NextApi/apiClient/cmPreOpenApi#getPreOpenGraph": {
+"kind": "api",
+"pages": [
+"/market-data/pre-open-market-cm-and-emerge-market"
+],
+"target": "NextApi/apiClient/cmPreOpenApi?functionName=getPreOpenGraph&indentifier={indentifier}"
+},
+"api:NextApi/apiClient/cmPreOpenApi#getPreOpenGraphFNO": {
+"kind": "api",
+"pages": [
+"/market-data/pre-open-market-cm-and-emerge-market"
+],
+"target": "NextApi/apiClient/cmPreOpenApi?functionName=getPreOpenGraphFNO&indentifier={indentifier}"
+},
+"api:NextApi/apiClient/homeApi#getCMSHeaderListingTop": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient/homeApi?functionName=getCMSHeaderListingTop"
+},
+"api:NextApi/apiClient/marketWatchApi#getBlockDealsData": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient/marketWatchApi?functionName=getBlockDealsData"
+},
+"api:NextApi/apiClient/marketWatchApi#getETFData": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient/marketWatchApi?functionName=getETFData&parent={parent}&child=${t||"
+},
+"api:NextApi/apiClient/marketWatchApi#getETFList": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient/marketWatchApi?functionName=getETFList"
+},
+"api:NextApi/apiClient/marketWatchApi#getETFListChild": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient/marketWatchApi?functionName=getETFListChild&parent={parent}"
+},
+"api:NextApi/apiClient/marketWatchApi#getIndexChart": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient/marketWatchApi?functionName=getIndexChart&&identifier={identifier}&flag=1Y"
+},
+"api:NextApi/apiClient/marketWatchApi#getIndexList": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient/marketWatchApi?functionName=getIndexList"
+},
+"api:NextApi/apiClient/marketWatchApi#getIndicesData": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient/marketWatchApi?functionName=getIndicesData&symbol={symbol}"
+},
+"api:NextApi/apiClient/marketWatchApi#getReitsInvitsData": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient/marketWatchApi?functionName=getReitsInvitsData&symbol={symbol}"
+},
+"api:NextApi/apiClient/marketWatchApi#getSGBData": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient/marketWatchApi?functionName=getSGBData"
+},
+"api:NextApi/apiClient/marketWatchApi#getSmeData": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient/marketWatchApi?functionName=getSmeData"
+},
+"api:NextApi/apiClient/marketWatchApi#getSymbolgraphData": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient/marketWatchApi?functionName=getSymbolgraphData&&identifier={identifier}&flag=1Y"
+},
+"api:NextApi/apiClient/marketWatchApi#getT0Data": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiClient/marketWatchApi?functionName=getT0Data"
+},
+"api:NextApi/apiStatic#getNavbarData": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiStatic?functionName=getNavbarData&refkey=footer"
+},
+"api:NextApi/apiStatic#getNotesData": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/apiStatic?functionName=getNotesData&url=/market-data/pre-open-market-cm-and-emerge-market"
+},
+"api:NextApi/cmsHandler#getNotificationList": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/cmsHandler?functionName=getNotificationList"
+},
+"api:NextApi/dynamicApi#getCurrentTime": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/dynamicApi?functionName=getCurrentTime"
+},
+"api:NextApi/dynamicApi#getIndexGraph": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/dynamicApi?functionName=getIndexGraph&symbol={symbol}"
+},
+"api:NextApi/globalSearch/{}": {
+"kind": "api",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "NextApi/globalSearch/{}?symbol=${encodeURIComponent(e?.toLowerCase()||"
+},
+"archive:/content/debt/New_debt_listing.xlsx": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/debt/New_debt_listing.xlsx"
+},
+"archive:/content/debt/Redmn_Def_Web.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/debt/Redmn_Def_Web.csv"
+},
+"archive:/content/equities/Axis_{date}.zip": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/Axis_13052022.zip"
+},
+"archive:/content/equities/DEBT.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/DEBT.csv"
+},
+"archive:/content/equities/EQUITY_L.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/EQUITY_L.csv"
+},
+"archive:/content/equities/IDR_W9.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/IDR_W9.csv"
+},
+"archive:/content/equities/INVITS_L.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/INVITS_L.csv"
+},
+"archive:/content/equities/List_of_Active_Securities_CM_DEBT.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/List_of_Active_Securities_CM_DEBT.csv"
+},
+"archive:/content/equities/List_sec_CA.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/stocks-in-call-auction"
+],
+"target": "/content/equities/List_sec_CA.csv"
+},
+"archive:/content/equities/PREF.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/PREF.csv"
+},
+"archive:/content/equities/REITS_L.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/REITS_L.csv"
+},
+"archive:/content/equities/WARRANT.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/WARRANT.csv"
+},
+"archive:/content/equities/eq_etfseclist.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/eq_etfseclist.csv"
+},
+"archive:/content/equities/eq_ilseclist.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/eq_ilseclist.csv"
+},
+"archive:/content/equities/eq_list_regulations.zip": {
+"kind": "archive",
+"pages": [
+"/market-data/block-deal-watch",
+"/market-data/exchange-traded-funds-etf",
+"/market-data/live-equity-market",
+"/market-data/live-t0-market"
+],
+"target": "/content/equities/eq_list_regulations.zip"
+},
+"archive:/content/equities/mf_close-end.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/mf_close-end.csv"
+},
+"archive:/content/equities/namechange.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/namechange.csv"
+},
+"archive:/content/equities/symbolchange.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/equities/symbolchange.csv"
+},
+"archive:/content/fo/NSE_FO_SosScheme.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-information-contracts-available-for-trading"
+],
+"target": "/content/fo/NSE_FO_SosScheme.csv"
+},
+"archive:/content/fo/fo_secban.csv": {
+"kind": "archive",
+"pages": [
+"/products-services/equity-derivatives-risk-management-sec-ban"
+],
+"target": "/content/fo/fo_secban.csv"
+},
+"archive:/content/fo/securities.zip": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-information-contracts-available-for-trading"
+],
+"target": "/content/fo/securities.zip"
+},
+"archive:/content/nsccl/combineoi.zip": {
+"kind": "archive",
+"pages": [
+"/products-services/equity-derivatives-risk-management-sec-ban"
+],
+"target": "/content/nsccl/combineoi.zip"
+},
+"archive:/content/slbs/AUB_SLB.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/slbs/AUB_SLB.csv"
+},
+"archive:/content/slbs/slb_elg_sec.csv": {
+"kind": "archive",
+"pages": [
+"/market-data/securities-available-for-trading"
+],
+"target": "/content/slbs/slb_elg_sec.csv"
+}
+},
+"version": 1
+}

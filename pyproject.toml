@@ -180,6 +180,10 @@ dependencies = [
   "litellm==1.110.1",
   "agno==3.0.5",
   "ddgs>=9.16.0",
+  "scikit-learn>=1.4",
+  "scipy>=1.11",
+  "tabulate>=0.9",
+  "nselib>=2.0",
 ]
 
 [tool.uv]

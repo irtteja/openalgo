@@ -162,6 +162,38 @@ interface Envelope {
   message?: string
 }
 
+export interface AtlasEngineStatus {
+  state: string
+  running: boolean
+  started: string | null
+  finished: string | null
+  step: string | null
+  steps: { label: string; ok: boolean; seconds: number }[]
+  ok: boolean | null
+  first_run: boolean
+  next_run: string | null
+  feed_exists: boolean
+  log: string[]
+}
+
+export interface AtlasLiveQuote {
+  symbol: string
+  ltp: number
+  prev_close: number | null
+  change: number | null
+  label?: string
+}
+
+export interface AtlasLive {
+  indices: AtlasLiveQuote[]
+  stocks: Record<string, AtlasLiveQuote>
+}
+
+function errorText(e: unknown, fallback: string): string {
+  const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message
+  return msg || (e instanceof Error ? e.message : fallback)
+}
+
 export const atlasApi = {
   async getFeed(): Promise<{ feed: AtlasFeed; source: string }> {
     try {
@@ -179,5 +211,35 @@ export const atlasApi = {
   },
   async refresh(): Promise<void> {
     await webClient.post('/atlas/api/refresh')
+  },
+  async engineStatus(): Promise<AtlasEngineStatus> {
+    const res = await webClient.get<{ status: string; data: AtlasEngineStatus }>(
+      '/atlas/api/engine/status'
+    )
+    return res.data.data
+  },
+  async runEngine(full = false): Promise<string> {
+    try {
+      const res = await webClient.post<{ status: string; message: string }>(
+        '/atlas/api/engine/run',
+        { full }
+      )
+      return res.data.message
+    } catch (e: unknown) {
+      throw new Error(errorText(e, 'The Atlas update could not be started.'))
+    }
+  },
+  async live(symbols: string[]): Promise<AtlasLive> {
+    try {
+      const res = await webClient.post<{ status: string; data: AtlasLive; message?: string }>(
+        '/atlas/api/live',
+        {
+          symbols,
+        }
+      )
+      return res.data.data
+    } catch (e: unknown) {
+      throw new Error(errorText(e, 'Live prices are not available right now.'))
+    }
   },
 }

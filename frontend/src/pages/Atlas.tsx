@@ -9,10 +9,16 @@
  * any trade is the trader's own decision.
  */
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { RefreshCw } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { Play, RefreshCw } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router'
-import { type AtlasFeed, type AtlasStock, atlasApi } from '@/api/atlas'
+import {
+  type AtlasEngineStatus,
+  type AtlasFeed,
+  type AtlasLive,
+  type AtlasStock,
+  atlasApi,
+} from '@/api/atlas'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -74,7 +80,7 @@ function Stat({ label, value, sub }: { label: string; value: string; sub?: strin
   )
 }
 
-function Overview({ f }: { f: AtlasFeed }) {
+function Overview({ f, live }: { f: AtlasFeed; live?: AtlasLive }) {
   const R = f.regime
   const state = R.states?.find((s) => s.name === R.now)
   const ranked = f.groups
@@ -86,6 +92,7 @@ function Overview({ f }: { f: AtlasFeed }) {
   }, {})
   return (
     <div className="space-y-4">
+      {live && live.indices.length > 0 && <LiveCard live={live} />}
       {R.now && (
         <Card>
           <CardHeader>
@@ -263,7 +270,7 @@ function Screener({ f }: { f: AtlasFeed }) {
   )
 }
 
-function StockRow({ x }: { x: AtlasStock }) {
+function StockRow({ x, today }: { x: AtlasStock; today?: number | null }) {
   return (
     <TableRow>
       <TableCell>
@@ -276,6 +283,7 @@ function StockRow({ x }: { x: AtlasStock }) {
       <TableCell>
         <PhaseBadge phase={x.sector_phase} />
       </TableCell>
+      <TableCell className={`text-right ${tone(today)}`}>{sgn(today)}</TableCell>
       <TableCell className={`text-right ${tone(x.ret_1m)}`}>{sgn(x.ret_1m)}</TableCell>
       <TableCell className={`text-right ${tone(x.ret_3m)}`}>{sgn(x.ret_3m)}</TableCell>
       <TableCell className={`text-right ${tone(x.breakdown_3m?.own)}`}>
@@ -291,7 +299,7 @@ function StockRow({ x }: { x: AtlasStock }) {
   )
 }
 
-function Stocks({ f }: { f: AtlasFeed }) {
+function Stocks({ f, live }: { f: AtlasFeed; live?: AtlasLive }) {
   const [q, setQ] = useState('')
   const rows = useMemo(() => {
     const u = q.trim().toUpperCase()
@@ -322,6 +330,7 @@ function Stocks({ f }: { f: AtlasFeed }) {
             <TableHead>Grade</TableHead>
             <TableHead className="text-right">Strength</TableHead>
             <TableHead>Sector</TableHead>
+            <TableHead className="text-right">Today</TableHead>
             <TableHead className="text-right">1m</TableHead>
             <TableHead className="text-right">3m</TableHead>
             <TableHead className="text-right">Own part 3m</TableHead>
@@ -332,7 +341,7 @@ function Stocks({ f }: { f: AtlasFeed }) {
         </TableHeader>
         <TableBody>
           {rows.map((x) => (
-            <StockRow key={x.symbol} x={x} />
+            <StockRow key={x.symbol} x={x} today={live?.stocks[x.symbol]?.change} />
           ))}
         </TableBody>
       </Table>
@@ -425,6 +434,92 @@ function Research({ f }: { f: AtlasFeed }) {
   )
 }
 
+function LiveCard({ live }: { live: AtlasLive }) {
+  const rows = [...live.indices].sort((a, b) => (b.change ?? 0) - (a.change ?? 0))
+  return (
+    <Card>
+      <CardHeader>
+        <CardDescription>Today, live from your broker</CardDescription>
+        <CardTitle className="text-base">Indices now</CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-wrap gap-2">
+        {rows.map((q) => (
+          <Badge key={q.symbol} variant="outline" className={tone(q.change)}>
+            {q.label}: {sgn(q.change, 2)}
+          </Badge>
+        ))}
+      </CardContent>
+    </Card>
+  )
+}
+
+function EngineCard({
+  st,
+  onRun,
+  busy,
+}: {
+  st?: AtlasEngineStatus
+  onRun: (full: boolean) => void
+  busy: boolean
+}) {
+  if (!st) return null
+  const running = st.running
+  const last = st.finished
+    ? `Last update finished ${st.finished.replace('T', ' ')}${st.ok === false ? ', with some steps failed' : ''}.`
+    : st.state === 'stopped'
+      ? 'The last update stopped before it finished; the next one continues where it left off.'
+      : 'No update has run on this computer yet.'
+  return (
+    <Card>
+      <CardHeader className="flex flex-row flex-wrap items-start justify-between gap-2">
+        <div>
+          <CardDescription>Updates on this computer, from NSE's public data</CardDescription>
+          <CardTitle className="text-base">
+            {running ? `Updating: ${st.step ?? 'starting'}` : last}
+          </CardTitle>
+          {!running && st.next_run && (
+            <CardDescription>
+              Next scheduled update: {st.next_run.replace('T', ' ').slice(0, 16)}
+            </CardDescription>
+          )}
+          {running && st.first_run && (
+            <CardDescription>
+              First update: downloading NSE history since 2015 takes a few hours. You can keep using
+              OpenAlgo meanwhile; if it stops, the next update continues where it left off.
+            </CardDescription>
+          )}
+        </div>
+        <div className="flex gap-2">
+          <Button size="sm" onClick={() => onRun(false)} disabled={running || busy}>
+            <Play className="mr-2 h-4 w-4" />
+            Update now
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => onRun(true)}
+            disabled={running || busy}
+          >
+            Update and relearn patterns
+          </Button>
+        </div>
+      </CardHeader>
+      {(running || st.steps.length > 0) && (
+        <CardContent>
+          <details>
+            <summary className="cursor-pointer text-sm text-muted-foreground">
+              {st.steps.length} steps finished{running ? ' so far' : ''}; show the log
+            </summary>
+            <pre className="mt-2 max-h-64 overflow-auto rounded bg-muted p-2 text-xs">
+              {st.log.join('\n')}
+            </pre>
+          </details>
+        </CardContent>
+      )}
+    </Card>
+  )
+}
+
 export default function Atlas() {
   const qc = useQueryClient()
   const { data, error, isLoading, isFetching } = useQuery({
@@ -437,13 +532,60 @@ export default function Atlas() {
     await atlasApi.refresh()
     await qc.invalidateQueries({ queryKey: ['atlas-feed'] })
   }
+  const [busy, setBusy] = useState(false)
+  const [runMsg, setRunMsg] = useState('')
+  const { data: st, refetch: refetchStatus } = useQuery({
+    queryKey: ['atlas-engine'],
+    queryFn: atlasApi.engineStatus,
+    refetchInterval: (q) => (q.state.data?.running ? 5000 : 60000),
+  })
+  // a finished update means a new feed: read it again
+  const lastFinished = useRef<string | null | undefined>(undefined)
+  useEffect(() => {
+    if (
+      lastFinished.current !== undefined &&
+      st?.finished &&
+      st.finished !== lastFinished.current
+    ) {
+      qc.invalidateQueries({ queryKey: ['atlas-feed'] })
+    }
+    lastFinished.current = st?.finished ?? null
+  }, [st?.finished, qc])
+  const runEngine = async (full: boolean) => {
+    setBusy(true)
+    try {
+      setRunMsg(await atlasApi.runEngine(full))
+    } catch (e) {
+      setRunMsg((e as Error).message)
+    } finally {
+      setBusy(false)
+      refetchStatus()
+    }
+  }
+  const liveSymbols = useMemo(() => {
+    if (!data) return []
+    const top = [...data.feed.stocks]
+      .sort((a, b) => (b.rs_rating ?? -1) - (a.rs_rating ?? -1))
+      .slice(0, 150)
+      .map((x) => x.symbol)
+    const lists = data.feed.screener.flatMap((p) => p.today)
+    return [...new Set([...top, ...lists])].slice(0, 200)
+  }, [data])
+  const { data: live } = useQuery({
+    queryKey: ['atlas-live', liveSymbols.length],
+    queryFn: () => atlasApi.live(liveSymbols),
+    enabled: liveSymbols.length > 0,
+    refetchInterval: 60000,
+    retry: false,
+  })
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
           <h1 className="text-2xl font-bold">Atlas</h1>
           <p className="text-sm text-muted-foreground">
-            Market analysis from NSE's public data, updated each evening.
+            Market analysis from NSE's public data, updated each evening; today's prices from your
+            broker.
             {data && ` Data to ${data.feed.date}.`} Odds and history, not advice. Nothing here
             places an order.
           </p>
@@ -453,6 +595,8 @@ export default function Atlas() {
           Reload
         </Button>
       </div>
+      <EngineCard st={st} onRun={runEngine} busy={busy} />
+      {runMsg && <p className="text-sm text-muted-foreground">{runMsg}</p>}
       {isLoading && <p className="text-sm text-muted-foreground">Loading the analysis...</p>}
       {error && (
         <Card>
@@ -461,8 +605,9 @@ export default function Atlas() {
             <CardDescription>{(error as Error).message}</CardDescription>
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground">
-            Set ATLAS_FEED_PATH to the Atlas feed file, or the three ATLAS_D1_ settings for the
-            Cloudflare database, in .env, then restart OpenAlgo.
+            Press Update now above to build the analysis on this computer from NSE's public data
+            (the first time takes a few hours), or connect the cloud Atlas with ATLAS_FEED_PATH or
+            the three ATLAS_D1_ settings in .env.
           </CardContent>
         </Card>
       )}
@@ -477,7 +622,7 @@ export default function Atlas() {
             <TabsTrigger value="research">Research</TabsTrigger>
           </TabsList>
           <TabsContent value="overview">
-            <Overview f={data.feed} />
+            <Overview f={data.feed} live={live} />
           </TabsContent>
           <TabsContent value="sectors">
             <Sectors f={data.feed} />
@@ -486,7 +631,7 @@ export default function Atlas() {
             <Screener f={data.feed} />
           </TabsContent>
           <TabsContent value="stocks">
-            <Stocks f={data.feed} />
+            <Stocks f={data.feed} live={live} />
           </TabsContent>
           <TabsContent value="hidden">
             <Hidden f={data.feed} />

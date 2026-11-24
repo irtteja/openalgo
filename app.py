@@ -909,6 +909,13 @@ def setup_environment(app):
                 logger.exception("Failed to reconcile Flow scheduler jobs")
 
             try:
+                from services.atlas_engine_service import init_atlas_scheduler
+
+                init_atlas_scheduler()
+            except Exception:
+                logger.exception("Failed to start the Atlas update schedule")
+
+            try:
                 from services.historify_scheduler_service import init_historify_scheduler
 
                 init_historify_scheduler(socketio=socketio)
