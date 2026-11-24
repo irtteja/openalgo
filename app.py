@@ -54,6 +54,7 @@ from blueprints.alerts import alerts_bp  # Import the chart alert log blueprint
 from blueprints.analyzer import analyzer_bp  # Import the analyzer blueprint
 from blueprints.apikey import api_key_bp
 from blueprints.arbitrage import arbitrage_bp  # Import the Arbitrage blueprint
+from blueprints.atlas import atlas_bp  # Atlas market analysis (reads the NSE Pattern Atlas feed)
 from blueprints.auth import auth_bp
 from blueprints.brlogin import brlogin_bp
 from blueprints.broker_config import broker_config_bp  # Broker Configuration and Select Broker
@@ -339,6 +340,7 @@ def create_app():
     app.register_blueprint(ivchart_bp)  # Register IV chart blueprint
     app.register_blueprint(scalping_bp)  # Register Scalping terminal blueprint
     app.register_blueprint(watchlist_bp)  # Register charting watchlist blueprint
+    app.register_blueprint(atlas_bp)  # Register Atlas market analysis blueprint
     app.register_blueprint(alerts_bp)  # Register chart alert log blueprint
     app.register_blueprint(alert_channels_bp)  # Register alert channels (/alerts page)
     app.register_blueprint(oitracker_bp)  # Register OI tracker blueprint

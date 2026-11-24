@@ -277,6 +277,12 @@ def react_sip_backtester():
     return serve_react_app()
 
 
+# Atlas market analysis
+@react_bp.route("/atlas", strict_slashes=False)
+def react_atlas():
+    return serve_react_app()
+
+
 # Sector Rotation
 @react_bp.route("/sector-rotation", strict_slashes=False)
 def react_sector_rotation():

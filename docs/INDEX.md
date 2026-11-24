@@ -28,6 +28,7 @@ need → drill into the specific file. Don't load everything at once.
 | Step-by-step user guide (setup → first order → integrations) | [userguide/README.md](userguide/README.md) |
 | MCP tool reference (Claude Desktop / Cursor / Windsurf) | [mcp-tool-reference.md](mcp-tool-reference.md) |
 | Connecting hosted AI clients through Remote MCP | [userguide/remote-mcp.md](userguide/remote-mcp.md) |
+| The Atlas page at `/atlas`: market analysis from the NSE Pattern Atlas, and how to connect its feed | [userguide/atlas.md](userguide/atlas.md) |
 | Saving broker keys and connecting a broker | [userguide/06-broker-connection/README.md](userguide/06-broker-connection/README.md) |
 
 ## Install, deploy & operate

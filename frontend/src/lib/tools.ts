@@ -49,6 +49,13 @@ export const tools: Tool[] = [
     color: 'bg-sky-500',
   },
   {
+    title: 'Atlas',
+    description:
+      'Market regime, sector phases and strength, stock stages, warnings and past odds from the NSE Pattern Atlas, updated each evening',
+    href: '/atlas',
+    color: 'bg-teal-500',
+  },
+  {
     title: 'Sector Rotation',
     description:
       'Which NSE sectors, stocks and indices are leading, weakening, lagging or improving against a benchmark, with daily or weekly trails',
